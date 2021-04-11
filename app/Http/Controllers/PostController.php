@@ -87,8 +87,11 @@ class PostController extends Controller
         }
 
         $file = $request->file('image_file');
-        $imageNewName = time() . '.' . $file->getClientOriginalExtension();
-        $file->move('images', $imageNewName);
+        $imageNewName = '';
+        if ($file) {
+            $imageNewName = time() . '.' . $file->getClientOriginalExtension();
+            $file->move('images', $imageNewName);
+        }
 
         $post = new Post();
         $post->content = $request->get('content');
